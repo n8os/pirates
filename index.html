@@ -1,196 +1,313 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Pirates</title>
-        <style>
-            :root {
-                --bg: #121212;
-                --bg2: #ffffff69;
-                --fg: #FFFFFF;
-                --error: #CF6679;
-                --onerror: #000000;
-                --primary: #BB86FC;
-                --altprime: #3700B3;
-                --secondary: #03DAC6; 
-            }
 
-            body {
-                margin: 0;
-                height: 100vh;
-                background-color: var(--bg);
-                color: var(--fg);
-            }
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pirates</title>
 
-            .container {
-                display: flex;
-                flex-direction: column;
-            }
+    <link rel="manifest" href="/manifest.json">
 
-            .inner {
-                margin: 0 auto;
-            }
+    <style>
+        :root {
+            --bg: #121212;
+            --bg2: #ffffff69;
+            --fg: #FFFFFF;
+            --error: #CF6679;
+            --onerror: #000000;
+            --primary: #BB86FC;
+            --altprime: #3700B3;
+            --secondary: #03DAC6;
+        }
 
-            .item-grid {
-                border-bottom-left-radius: 3px;
-                border-bottom-right-radius: 3px;
-                overflow:hidden;
-            }
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: var(--bg);
+            color: var(--fg);
+        }
 
-            .item {
-                display: flex;
-                border-top: 1px solid;
-                border-color: var(--bg);
-                background-color: var(--bg2);
-                box-sizing: border-box;
-                justify-content: center;
-                align-items: center;
-                padding: 0.5em;
-            }
+        .hidden {
+            display: none;
+        }
 
-            /* .item:last-of-type {
-                border-bottom: 0;
-            } */
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
 
-            .item-title {
-                width: auto;
-                padding: 0 0.5em;
-            }
-            
-            button {
-                border-radius: 3px;
-                border: 0;
-                padding: 7px 12px;
-                background-color: var(--primary);
-                cursor: pointer;
-            }
+        .inner {
+            margin: 0 auto;
+        }
 
-            svg {
-                height: 1em;
-                width: 1em;
-                display: block;
-            }
+        .item-grid {
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+        }
 
-            .item-time {
-                margin-left: auto;
-            }
+        .item {
+            display: flex;
+            border-top: 1px solid;
+            border-color: var(--bg);
+            background-color: var(--bg2);
+            box-sizing: border-box;
+            justify-content: center;
+            align-items: center;
+            padding: 1em;
+            width: 50%;
+        }
 
-            .timer {
-                text-align: center;
-            }
+        .item:nth-of-type(odd) {
+            border-right: 1px solid;
+            border-color: var(--bg);
+        }
 
-            .timer span {
-                font-size: 6em;
-            }
+        .item-title {
+            width: auto;
+            padding: 0 1em;
+            font-size: 18px;
+        }
 
-            .toolbar {
-                align-self: flex-end;
-                text-align: center;
-                padding: 0.5em;
-                background-color: var(--bg2);
-                border-top-right-radius: 3px;
-                border-top-left-radius: 3px;
-            }
-        </style>
-    </head>
-    <header>
-        
-    </header>
-    <body>
-        <div class="container">
-            <div class="inner">
-                <div class="timer">
-                    <span id="sot_timer">0s</span>
+        button {
+            border-radius: 3px;
+            border: 0;
+            padding: 10px;
+            background-color: var(--primary);
+            cursor: pointer;
+            border: 1px solid;
+            border-color: var(--altprime);
+        }
+
+        button:hover {
+            background-color: var(--altprime);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        svg {
+            height: 16px;
+            width: 16px;
+            display: block;
+        }
+
+        .item-time {
+            margin-left: auto;
+        }
+
+        .timer {
+            text-align: center;
+        }
+
+        .timer span {
+            font-size: 6em;
+        }
+
+        .toolbar {
+            align-self: flex-end;
+            text-align: center;
+            padding: 1em;
+            background-color: var(--bg2);
+            border-top-right-radius: 3px;
+            border-top-left-radius: 3px;
+        }
+
+        .toolbar button {
+            margin: 0 0.5em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="inner">
+            <div class="timer">
+                <span id="sot_timer">0s</span>
+            </div>
+            <div class="toolbar">
+                <button onclick="stopTimer();" id="sot_stop"><svg aria-hidden="true" focusable="false" data-icon="stop"
+                        role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                        <path fill="currentColor"
+                            d="M384 128v255.1c0 35.35-28.65 64-64 64H64c-35.35 0-64-28.65-64-64V128c0-35.35 28.65-64 64-64H320C355.3 64 384 92.65 384 128z">
+                        </path>
+                    </svg></button>
+                <button onclick="resetTimer();" id="sot_stop"><svg aria-hidden="true" focusable="false"
+                        data-icon="rotate" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                            d="M449.9 39.96l-48.5 48.53C362.5 53.19 311.4 32 256 32C161.5 32 78.59 92.34 49.58 182.2c-5.438 16.81 3.797 34.88 20.61 40.28c16.97 5.5 34.86-3.812 40.3-20.59C130.9 138.5 189.4 96 256 96c37.96 0 73 14.18 100.2 37.8L311.1 178C295.1 194.8 306.8 223.4 330.4 224h146.9C487.7 223.7 496 215.3 496 204.9V59.04C496 34.99 466.9 22.95 449.9 39.96zM441.8 289.6c-16.94-5.438-34.88 3.812-40.3 20.59C381.1 373.5 322.6 416 256 416c-37.96 0-73-14.18-100.2-37.8L200 334C216.9 317.2 205.2 288.6 181.6 288H34.66C24.32 288.3 16 296.7 16 307.1v145.9c0 24.04 29.07 36.08 46.07 19.07l48.5-48.53C149.5 458.8 200.6 480 255.1 480c94.45 0 177.4-60.34 206.4-150.2C467.9 313 458.6 294.1 441.8 289.6z">
+                        </path>
+                    </svg></button>
+            </div>
+            <div class="item-grid">
+                <div class="item">
+                    <div class="item-button">
+                        <button onclick="startTimer(60);" id="snake"><svg aria-hidden="true" focusable="false"
+                                data-icon="play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path fill="currentColor"
+                                    d="M176 480C148.6 480 128 457.6 128 432v-352c0-25.38 20.4-47.98 48.01-47.98c8.686 0 17.35 2.352 25.02 7.031l288 176C503.3 223.8 512 239.3 512 256s-8.703 32.23-22.97 40.95l-288 176C193.4 477.6 184.7 480 176 480z">
+                                </path>
+                            </svg></button>
+                    </div>
+                    <div class="item-title">
+                        <span>Meat</span>
+                    </div>
+                    <div class="item-time">
+                        <span>60s</span>
+                    </div>
                 </div>
-                <div class="toolbar">
-                    <button onclick="stopTimer();" id="sot_stop"><svg aria-hidden="true" focusable="false" data-icon="stop" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M384 128v255.1c0 35.35-28.65 64-64 64H64c-35.35 0-64-28.65-64-64V128c0-35.35 28.65-64 64-64H320C355.3 64 384 92.65 384 128z"></path></svg></button>
-                    <button onclick="resetTimer();" id="sot_stop"><svg aria-hidden="true" focusable="false" data-icon="rotate" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M449.9 39.96l-48.5 48.53C362.5 53.19 311.4 32 256 32C161.5 32 78.59 92.34 49.58 182.2c-5.438 16.81 3.797 34.88 20.61 40.28c16.97 5.5 34.86-3.812 40.3-20.59C130.9 138.5 189.4 96 256 96c37.96 0 73 14.18 100.2 37.8L311.1 178C295.1 194.8 306.8 223.4 330.4 224h146.9C487.7 223.7 496 215.3 496 204.9V59.04C496 34.99 466.9 22.95 449.9 39.96zM441.8 289.6c-16.94-5.438-34.88 3.812-40.3 20.59C381.1 373.5 322.6 416 256 416c-37.96 0-73-14.18-100.2-37.8L200 334C216.9 317.2 205.2 288.6 181.6 288H34.66C24.32 288.3 16 296.7 16 307.1v145.9c0 24.04 29.07 36.08 46.07 19.07l48.5-48.53C149.5 458.8 200.6 480 255.1 480c94.45 0 177.4-60.34 206.4-150.2C467.9 313 458.6 294.1 441.8 289.6z"></path></svg></button>
+                <div class="item">
+                    <div class="item-button">
+                        <button onclick="startTimer(40);" id="fish"><svg aria-hidden="true" focusable="false"
+                                data-icon="play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path fill="currentColor"
+                                    d="M176 480C148.6 480 128 457.6 128 432v-352c0-25.38 20.4-47.98 48.01-47.98c8.686 0 17.35 2.352 25.02 7.031l288 176C503.3 223.8 512 239.3 512 256s-8.703 32.23-22.97 40.95l-288 176C193.4 477.6 184.7 480 176 480z">
+                                </path>
+                            </svg></button>
+                    </div>
+                    <div class="item-title">
+                        <span>Fish</span>
+                    </div>
+                    <div class="item-time">
+                        <span>40s</span>
+                    </div>
                 </div>
-                <div class="item-grid">
-                    <div class="item">
-                        <div class="item-button">
-                            <button onclick="startTimer(60);" id="snake"><svg aria-hidden="true" focusable="false" data-icon="play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M176 480C148.6 480 128 457.6 128 432v-352c0-25.38 20.4-47.98 48.01-47.98c8.686 0 17.35 2.352 25.02 7.031l288 176C503.3 223.8 512 239.3 512 256s-8.703 32.23-22.97 40.95l-288 176C193.4 477.6 184.7 480 176 480z"></path></svg></button>
-                        </div>
-                        <div class="item-title"">
-                            <p>Meat</p>
-                        </div>
-                        <div class="item-time">
-                            <p>60s</p>
-                        </div>
+                <div class="item">
+                    <div class="item-button">
+                        <button onclick="startTimer(90);" id="trophy"><svg aria-hidden="true" focusable="false"
+                                data-icon="play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path fill="currentColor"
+                                    d="M176 480C148.6 480 128 457.6 128 432v-352c0-25.38 20.4-47.98 48.01-47.98c8.686 0 17.35 2.352 25.02 7.031l288 176C503.3 223.8 512 239.3 512 256s-8.703 32.23-22.97 40.95l-288 176C193.4 477.6 184.7 480 176 480z">
+                                </path>
+                            </svg></button>
                     </div>
-                    <div class="item">
-                        <div class="item-button">
-                            <button onclick="startTimer(40);" id="fish"><svg aria-hidden="true" focusable="false" data-icon="play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M176 480C148.6 480 128 457.6 128 432v-352c0-25.38 20.4-47.98 48.01-47.98c8.686 0 17.35 2.352 25.02 7.031l288 176C503.3 223.8 512 239.3 512 256s-8.703 32.23-22.97 40.95l-288 176C193.4 477.6 184.7 480 176 480z"></path></svg></button>
-                        </div>
-                        <div class="item-title">
-                            <p>Fish</p>
-                        </div>
-                        <div class="item-time">
-                            <p>40s</p>
-                        </div>
+                    <div class="item-title">
+                        <span>Trophy Fish</span>
                     </div>
-                    <div class="item">
-                        <div class="item-button">
-                            <button onclick="startTimer(90);" id="trophy"><svg aria-hidden="true" focusable="false" data-icon="play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M176 480C148.6 480 128 457.6 128 432v-352c0-25.38 20.4-47.98 48.01-47.98c8.686 0 17.35 2.352 25.02 7.031l288 176C503.3 223.8 512 239.3 512 256s-8.703 32.23-22.97 40.95l-288 176C193.4 477.6 184.7 480 176 480z"></path></svg></button>
-                        </div>
-                        <div class="item-title"">
-                            <p>Trophy Fish</p>
-                        </div>
-                        <div class="item-time">
-                            <p>90s</p>
-                        </div>
+                    <div class="item-time">
+                        <span>90s</span>
                     </div>
-                    <div class="item">
-                        <div class="item-button">
-                            <button onclick="startTimer(120);" id="meg"><svg aria-hidden="true" focusable="false" data-icon="play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M176 480C148.6 480 128 457.6 128 432v-352c0-25.38 20.4-47.98 48.01-47.98c8.686 0 17.35 2.352 25.02 7.031l288 176C503.3 223.8 512 239.3 512 256s-8.703 32.23-22.97 40.95l-288 176C193.4 477.6 184.7 480 176 480z"></path></svg></button>
-                        </div>
-                        <div class="item-title">
-                            <p>Meg/Kraken</p>
-                        </div>
-                        <div class="item-time">
-                            <p>120s</p>
-                        </div>
+                </div>
+                <div class="item">
+                    <div class="item-button">
+                        <button onclick="startTimer(120);" id="meg"><svg aria-hidden="true" focusable="false"
+                                data-icon="play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path fill="currentColor"
+                                    d="M176 480C148.6 480 128 457.6 128 432v-352c0-25.38 20.4-47.98 48.01-47.98c8.686 0 17.35 2.352 25.02 7.031l288 176C503.3 223.8 512 239.3 512 256s-8.703 32.23-22.97 40.95l-288 176C193.4 477.6 184.7 480 176 480z">
+                                </path>
+                            </svg></button>
+                    </div>
+                    <div class="item-title">
+                        <span>Meg/Kraken</span>
+                    </div>
+                    <div class="item-time">
+                        <span>120s</span>
                     </div>
                 </div>
             </div>
-        </div> 
-    </body>
-    <footer>
-        <script>
-            let timer;
-            let seconds = 0;
-            let stopTime = 0;
-            const audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3');
-            function startTimer(stop) {
+        </div>
+    </div>
+</body>
+<footer>
+    <!-- Install button, hidden by default -->
+    <div id="installContainer" class="hidden">
+        <button id="butInstall" type="button">
+            Install
+        </button>
+    </div>
+    <script>
+        let timer;
+        let seconds = 0;
+        let stopTime = 0;
+        const audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3');
+        function startTimer(stop) {
+            clearInterval(timer);
+            seconds = 0;
+            stopTime = stop;
+            audio.load();
+            timer = setInterval(tickFunc, 1000);
+        }
+
+        function tickFunc() {
+            seconds++;
+            document.getElementById("sot_timer").innerText = seconds + "s";
+            console.log("seconds: " + seconds);
+            if (seconds >= stopTime) {
                 clearInterval(timer);
                 seconds = 0;
-                stopTime = stop;
-                timer = setInterval(tickFunc, 1000);
+                audio.play();
+                audio.addEventListener('played', alert("Finito! Buon appetito."));
+                // setTimeout is used to render the document before the alert.
+                //setTimeout(function(){alert("Finito! Buon appetito.");},0);
             }
+        }
 
-            function tickFunc() {
-                seconds++;
-                document.getElementById("sot_timer").innerText = seconds + "s";
-                console.log("seconds: " + seconds);
-                if (seconds >= stopTime) {
-                    clearInterval(timer);
-                    seconds = 0;
-                    audio.play();
-                    // setTimeout is used to render the document before the alert.
-                    setTimeout(function(){alert("Finito! Buon appetito.");},0)
+        function stopTimer() {
+            clearInterval(timer);
+            seconds = 0;
+            document.getElementById("sot_timer").innerText = seconds + "s";
+        }
+
+        function resetTimer() {
+            seconds = 0;
+            document.getElementById("sot_timer").innerText = seconds + "s";
+        }
+
+        //service worker https://web.dev/codelab-make-installable/
+        const divInstall = document.getElementById('installContainer');
+        const butInstall = document.getElementById('butInstall');
+
+        /* Put code here */
+        window.addEventListener('beforeinstallprompt', (event) => {
+            console.log('👍', 'beforeinstallprompt', event);
+            // Stash the event so it can be triggered later.
+            window.deferredPrompt = event;
+            // Remove the 'hidden' class from the install button container
+            divInstall.classList.toggle('hidden', false);
+        });
+        butInstall.addEventListener('click', async () => {
+            console.log('👍', 'butInstall-clicked');
+            const promptEvent = window.deferredPrompt;
+            if (!promptEvent) {
+                // The deferred prompt isn't available.
+                return;
                 }
-            }
+            // Show the install prompt.
+            promptEvent.prompt();
+            // Log the result
+            const result = await promptEvent.userChoice;
+            console.log('👍', 'userChoice', result);
+            // Reset the deferred prompt variable, since
+            // prompt() can only be called once.
+            window.deferredPrompt = null;
+            // Hide the install button.
+            divInstall.classList.toggle('hidden', true);
+        });
 
-            function stopTimer() {
-                clearInterval(timer);
-                seconds = 0;
-                document.getElementById("sot_timer").innerText = seconds + "s";
-            }
+        window.addEventListener('appinstalled', (event) => {
+            console.log('👍', 'appinstalled', event);
+            // Clear the deferredPrompt so it can be garbage collected
+            window.deferredPrompt = null;
+        });
 
-            function resetTimer() {
-                seconds = 0;
-                document.getElementById("sot_timer").innerText = seconds + "s";
-            }
-        </script>
-    </footer>
+        /* Only register a service worker if it's supported */
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js');
+        }
+
+        /**
+        * Warn the page must be served over HTTPS
+        * The `beforeinstallprompt` event won't fire if the page is served over HTTP.
+        * Installability requires a service worker with a fetch event handler, and
+        * if the page isn't served over HTTPS, the service worker won't load.
+        */
+        if (window.location.protocol === 'http:') {
+            const requireHTTPS = document.getElementById('requireHTTPS');
+            const link = requireHTTPS.querySelector('a');
+            link.href = window.location.href.replace('http://', 'https://');
+            requireHTTPS.classList.remove('hidden');
+        }
+    </script>
+</footer>
+
 </html>
