@@ -523,11 +523,16 @@ progress::-webkit-progress-value {
   background-size: 50px 30px, 100% 100%, 100% 100%;
 } */
 
-.footer {
+footer {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 1rem;
+}
+
+footer > div,
+footer > button {
+  margin: 0 12px;
 }
 
 
