@@ -490,7 +490,8 @@ svg {
   filter: invert(100%);
   font-weight: 400;
   font-size: 18px;
-  color: var(--primary);
+  color: var(--bg);
+  mix-blend-mode: difference;
 }
 
 .recipe-time progress {
