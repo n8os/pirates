@@ -5,161 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pirates</title>
 
-    <link rel="manifest" href="/manifest.json">
-
-    <style>
-        :root {
-            --bg: #121212;
-            --bg2: #ffffff69;
-            --fg: #FFFFFF;
-            --error: #CF6679;
-            --onerror: #000000;
-            --primary: #BB86FC;
-            --altprime: #3700B3;
-            --secondary: #03DAC6;
-        }
-
-        body {
-            margin: 0;
-            height: 100vh;
-            background-color: var(--bg);
-            color: var(--fg);
-        }
-
-        button {
-            border-radius: 3px;
-            border: 0;
-            padding: 10px;
-            background-color: var(--primary);
-            cursor: pointer;
-            border: 1px solid;
-            border-color: var(--altprime);
-        }
-
-        button:hover {
-            background-color: var(--altprime);
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        button.playing {
-            background-color: var(--altprime);
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        button.playing svg:nth-of-type(1) {
-            display: none;
-        }
-
-        button.playing svg:nth-of-type(2) {
-            display: block !important;
-        }
-
-        svg {
-            height: 16px;
-            width: 16px;
-            display: block;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .inner {
-            margin: 0 auto;
-        }
-
-        .item-grid {
-            border-radius: 3px;
-            overflow: hidden;
-            display: flex;
-            flex-wrap: wrap;
-            max-width: 1200px;
-            padding: 2em;
-        }
-
-        .item {
-            display: flex;
-            flex-wrap: wrap;
-            border-top: 1px solid;
-            border-color: var(--bg);
-            background-color: var(--bg2);
-            box-sizing: border-box;
-            justify-content: center;
-            align-items: center;
-            padding: 1em;
-            width: 50%;
-        }
-
-        .item:nth-of-type(odd) {
-            border-right: 1px solid;
-            border-color: var(--bg);
-        }
-
-        .item-title {
-            width: 100%;
-            font-size: 18px;
-            order: -1;
-            margin-bottom: 0.5em;
-        }
-
-        .page-title {
-            font-size: 2em;
-            text-align: center;
-            padding-top: 1em;
-        }
-
-        .item-time {
-            margin-left: auto;
-            width: 80px;
-            text-align: center;
-        }
-
-        .item progress {
-            flex-grow: 1;
-            height: 30px;
-            appearance: none;
-            padding: 0 1em;
-        }
-
-        progress[value]::-webkit-progress-value {
-            background-image:
-                -webkit-linear-gradient(-45deg, 
-                                        transparent 33%, rgba(0, 0, 0, .1) 33%, 
-                                        rgba(0,0, 0, .1) 66%, transparent 66%),
-                -webkit-linear-gradient(top, 
-                                        rgba(255, 255, 255, .25), 
-                                        rgba(0, 0, 0, .25)),
-                -webkit-linear-gradient(left, rgb(126, 29, 110), rgb(32, 142, 146));
-
-            border-radius: 2px; 
-            background-size: 50px 30px, 100% 100%, 100% 100%;
-        }
-
-        @media only screen and (max-width: 900px) {
-            .item {
-                width: 100%;
-                border-right: none !important;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css" /> 
+    <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
     <div class="container">
         <div class="inner">
-            <div class="page-title">
-                <span id="cookinga">What are we cookin' matey?</span>
-            </div>
-            <div class="item-grid">
-                <div class="item">
-                    <div class="item-button">
+            <h1 class="page-title">What we cookin' matey?</h1>
+            <div class="recipe-grid">
+                <div class="recipe">
+                    <h2 class="recipe-title">Chicken, pork, or shark (60s - 120s)</h2>
+                    <div class="recipe-button">
                         <button data-time="60" class="startTimer">
                             <svg aria-hidden="true" focusable="false" data-icon="play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                 <path fill="currentColor"
@@ -180,16 +37,14 @@
                             </svg>
                         </button>
                     </div>
-                    <div class="item-title">
-                        <span>Chicken, pork, or shark</span>
-                    </div>
-                    <progress max="60" value="0"></progress>
-                    <div class="item-time">
-                        <span>60s - 120s</span>
+                    <div class="recipe-time">
+                        <progress max="60" value="0"></progress>
+                        <div class="recipe-seconds"><span>60</span>s</div>
                     </div>
                 </div>
-                <div class="item">
-                    <div class="item-button">
+                <div class="recipe">
+                    <h2 class="recipe-title">Fish (40s - 80s)</h2>
+                    <div class="recipe-button">
                         <button data-time="40" class="startTimer">
                             <svg aria-hidden="true" focusable="false" data-icon="play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                 <path fill="currentColor"
@@ -210,16 +65,14 @@
                             </svg>
                         </button>
                     </div>
-                    <div class="item-title">
-                        <span>Fish</span>
-                    </div>
-                    <progress max="40" value="0"></progress>
-                    <div class="item-time">
-                        <span>40s - 80s</span>
+                    <div class="recipe-time">
+                        <progress max="40" value="0"></progress>
+                        <div class="recipe-seconds"><span>40</span>s</div>
                     </div>
                 </div>
-                <div class="item">
-                    <div class="item-button">
+                <div class="recipe">
+                    <h2 class="recipe-title">Trophy Fish (90s - 180s)</h2>
+                    <div class="recipe-button">
                         <button data-time="90" class="startTimer">
                             <svg aria-hidden="true" focusable="false" data-icon="play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                 <path fill="currentColor"
@@ -240,16 +93,14 @@
                             </svg>
                         </button>
                     </div>
-                    <div class="item-title">
-                        <span>Trophy Fish</span>
-                    </div>
-                    <progress max="90" value="0"></progress>
-                    <div class="item-time">
-                        <span>90s - 180s</span>
+                    <div class="recipe-time">
+                        <progress max="90" value="0"></progress>
+                        <div class="recipe-seconds"><span>90</span>s</div>
                     </div>
                 </div>
-                <div class="item" id="meg">
-                    <div class="item-button">
+                <div class="recipe" id="meg">
+                    <h2 class="recipe-title">Meg/Kraken (120s - 240s)</h2>
+                    <div class="recipe-button">
                         <button data-time="120" class="startTimer">
                             <svg aria-hidden="true" focusable="false" data-icon="play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                 <path fill="currentColor"
@@ -270,16 +121,14 @@
                             </svg>
                         </button>
                     </div>
-                    <div class="item-title">
-                        <span>Meg/Kraken</span>
-                    </div>
-                    <progress max="120" value="0"></progress>
-                    <div class="item-time">
-                        <span>120s - 240s</span>
+                    <div class="recipe-time">
+                        <progress max="120" value="0"></progress>
+                        <div class="recipe-seconds"><span>120</span>s</div>
                     </div>
                 </div>
-                <div class="item" id="test">
-                    <div class="item-button">
+                <div class="recipe" id="test">
+                    <h2 class="recipe-title">Test</h2>
+                    <div class="recipe-button">
                         <button data-time="5" class="startTimer">
                             <svg aria-hidden="true" focusable="false" data-icon="play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                 <path fill="currentColor"
@@ -300,12 +149,9 @@
                             </svg>
                         </button>
                     </div>
-                    <div class="item-title">
-                        <span>Test</span>
-                    </div>
-                    <progress max="5" value="0"></progress>
-                    <div class="item-time">
-                        <span>5s</span>
+                    <div class="recipe-time">
+                        <progress max="5" value="0"></progress>
+                        <div class="recipe-seconds"><span>5</span>s</div>
                     </div>
                 </div>
             </div>
@@ -319,159 +165,6 @@
             Install
         </button>
     </div>
-    <!-- <button onclick="window.navigator.vibrate([200, 100, 200]);">Bust a move.</button> -->
-    <script>
-        const audio  = new Audio('https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3');
-        audio.load();
-        // audio.addEventListener('play', (event) => {
-        //     timer.stop();
-        //     console.log('cooked!');
-        //     alert("Finito! Buon appetito.");
-        // });
-
-        /**
-         * Self-adjusting interval to account for drifting
-         * 
-         * @param {function} workFunc  Callback containing the work to be done
-         *                             for each interval
-         * @param {int}      interval  Interval speed (in milliseconds)
-         * @param {function} errorFunc (Optional) Callback to run if the drift
-         *                             exceeds interval
-         */
-        function AdjustingInterval(element, interval, errorFunc) {
-            let that = this;
-            let expected, timeout;
-            let stoptime = element.dataset.time;
-            const progress = element.parentNode.parentNode.querySelector('progress');
-            this.interval = interval;
-
-            this.start = function() {
-                expected = Date.now() + this.interval;
-                timeout = setTimeout(step, this.interval);
-            }
-
-            this.stop = function() {
-                clearTimeout(timeout);
-            }
-
-            this.reset = function() {
-                clearTimeout(timeout);
-                stoptime = element.dataset.time;
-                progress.value = 0;
-            }
-
-
-            function step() {
-                var drift = Date.now() - expected;
-                if (drift > that.interval) {
-                    // You could have some default stuff here too...
-                    if (errorFunc) errorFunc();
-                }
-                // workFunc();
-                
-                stoptime--;
-                progress.value = progress.max - stoptime;
-                console.log("seconds: " + stoptime);
-                if (stoptime <= 0) {
-                    audio.play();
-                    stoptime = element.dataset.time;
-                    clearTimeout(timeout);
-                    return
-                }
-
-                expected += that.interval;
-                timeout = setTimeout(step, Math.max(0, that.interval-drift));
-            }
-
-        }
-
-        const timerError = function() {
-            console.warn('Timer: The drift exceeded the interval.');
-        };
-
-        document.querySelectorAll('.startTimer').forEach(element => {
-            let timer = new AdjustingInterval(element, 1000, timerError);
-            let flipit = true;
-            const resetit = element.parentNode.querySelector('button.reset');
-
-            resetit.addEventListener('click', (event) => {
-                console.log('reseting');
-                element.classList.remove('playing');
-                flipit = true;
-                timer.reset();
-            })
-
-            element.addEventListener('click', (event) => {
-                console.log('clicked', element.dataset.time);
-                if ( flipit ) {
-                    timer.start();
-                    element.classList.add('playing');
-                } else {
-                    timer.stop();
-                    element.classList.remove('playing');
-                }
-                flipit = false == flipit ? true : false;
-            })
-        });
-
-    </script>
-
-    <script>
-        //service worker https://web.dev/codelab-make-installable/
-        const divInstall = document.getElementById('installContainer');
-        const butInstall = document.getElementById('butInstall');
-
-        /* Put code here */
-        window.addEventListener('beforeinstallprompt', (event) => {
-            console.log('👍', 'beforeinstallprompt', event);
-            // Stash the event so it can be triggered later.
-            window.deferredPrompt = event;
-            // Remove the 'hidden' class from the install button container
-            divInstall.classList.toggle('hidden', false);
-        });
-        butInstall.addEventListener('click', async () => {
-            console.log('👍', 'butInstall-clicked');
-            const promptEvent = window.deferredPrompt;
-            if (!promptEvent) {
-                // The deferred prompt isn't available.
-                return;
-                }
-            // Show the install prompt.
-            promptEvent.prompt();
-            // Log the result
-            const result = await promptEvent.userChoice;
-            console.log('👍', 'userChoice', result);
-            // Reset the deferred prompt variable, since
-            // prompt() can only be called once.
-            window.deferredPrompt = null;
-            // Hide the install button.
-            divInstall.classList.toggle('hidden', true);
-        });
-
-        window.addEventListener('appinstalled', (event) => {
-            console.log('👍', 'appinstalled', event);
-            // Clear the deferredPrompt so it can be garbage collected
-            window.deferredPrompt = null;
-        });
-
-        /* Only register a service worker if it's supported */
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js');
-        }
-
-        /**
-        * Warn the page must be served over HTTPS
-        * The `beforeinstallprompt` event won't fire if the page is served over HTTP.
-        * Installability requires a service worker with a fetch event handler, and
-        * if the page isn't served over HTTPS, the service worker won't load.
-        */
-        if (window.location.protocol === 'http:') {
-            const requireHTTPS = document.getElementById('requireHTTPS');
-            const link = requireHTTPS.querySelector('a');
-            link.href = window.location.href.replace('http://', 'https://');
-            requireHTTPS.classList.remove('hidden');
-        }
-    </script>
+    <script src="index.js" type="text/javascript"></script>
 </footer>
-
 </html>
