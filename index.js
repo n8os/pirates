@@ -1,6 +1,15 @@
 //service worker https://web.dev/codelab-make-installable/
 const divInstall = document.getElementById("installContainer");
 const butInstall = document.getElementById("butInstall");
+const butNotifications = document.getElementById("notifications");
+butNotifications.addEventListener("click", () => {
+  Notification.requestPermission().then((result) => {
+    if (result === "granted") {
+      alert('Notifications granted');
+    }
+  });
+});
+
 
 /* Put code here */
 window.addEventListener("beforeinstallprompt", (event) => {
@@ -52,6 +61,25 @@ if (window.location.protocol === "http:") {
   link.href = window.location.href.replace("http://", "https://");
   requireHTTPS.classList.remove("hidden");
 }
+/** End service worker JS */
+
+/**
+ * Send a notification when the cooking timer is done.
+ * The notification permissions must be granted.
+ */
+
+function timerDone() {
+  const notifTitle = 'Timer done!';
+  const notifBody = 'Get your shit off the stove...';
+  const notifImg = 'lemon-pirate.png';
+  const options = {
+    body: notifBody,
+    icon: notifImg,
+  };
+  new Notification(notifTitle, options);
+}
+
+
 
 const audio = new Audio(
   "https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"
@@ -109,6 +137,7 @@ function AdjustingInterval(element, interval, errorFunc) {
     timerText.innerText = stoptime.toString();
 
     if (stoptime <= 0) {
+      timerDone();
       audio.play();
       stoptime = element.dataset.time;
       clearTimeout(timeout);
