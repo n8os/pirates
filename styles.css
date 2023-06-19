@@ -499,29 +499,31 @@ svg {
   height: 38px;
   appearance: none;
   background-color: var(--fg);
+  accent-color: var(--on-secondary);
   box-sizing: border-box;
   padding: 0;
   border: 0;
+  border-radius: 3px;
 }
 
 progress::-moz-progress-bar,
-progress::-webkit-progress-value {
+progress::-webkit-progress-value,
+progress[value]::-moz-progress-bar  {
+  accent-color: var(--on-secondary);
   background-color: var(--on-secondary);
 }
-/* progress[value]::-webkit-progress-value {
-  background-image: -webkit-linear-gradient(
-      -45deg,
-      transparent 33%,
-      rgba(0, 0, 0, 0.1) 33%,
-      rgba(0, 0, 0, 0.1) 66%,
-      transparent 66%
-    ),
-    -webkit-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.25)),
-    -webkit-linear-gradient(left, rgb(126, 29, 110), rgb(32, 142, 146));
 
-  border-radius: 2px;
-  background-size: 50px 30px, 100% 100%, 100% 100%;
-} */
+progress[value]::-webkit-progress-bar {
+  background-color: var(--fg);
+  border-radius: 3px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+progress[value]::-webkit-progress-value {
+  background-color: var(--on-secondary);
+  border-radius: 3px;
+  border: none;
+  background-size: 100% 100%;
+}
 
 footer {
   display: flex;
@@ -562,6 +564,11 @@ footer > button {
   border: 1px solid transparent;
   box-shadow: 0px 0px 0px 2px #121943;
 } */
+
+.toggle__input:focus + .toggle-track {
+  border: 1px solid var(--fg);
+}
+
 .toggle__input:disabled + .toggle-track {
   cursor: not-allowed;
   opacity: 0.7;
@@ -572,7 +579,7 @@ footer > button {
   border-radius: 100px;
   cursor: pointer;
   display: flex;
-  height: 30px;
+  height: 28px;
   margin-right: 12px;
   position: relative;
   width: 60px;
@@ -603,7 +610,7 @@ footer > button {
 
 .toggle__input:checked + .toggle-track .toggle-indicator {
   background: var(--primary);
-  transform: translateX(30px);
+  transform: translateX(32px);
 }
 .toggle__input:checked + .toggle-track .toggle-indicator .checkMark {
   opacity: 1;
