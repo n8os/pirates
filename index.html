@@ -159,6 +159,22 @@
     </div>
 </body>
 <footer>
+    <div class="wake-lock">
+        <label class="toggle" for="wake-lock">
+            <input type="checkbox" class="toggle__input" id="wake-lock" />
+            <span class="toggle-track">
+              <span class="toggle-indicator">
+                <!--  This check mark is optional  -->
+                <span class="checkMark">
+                  <svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true">
+                    <path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path>
+                  </svg>
+                </span>
+              </span>
+            </span>
+            Wake lock
+        </label>
+    </div>
     <!-- Install button, hidden by default -->
     <div id="installContainer" class="hidden">
         <button id="butInstall" type="button">
@@ -166,7 +182,7 @@
         </button>
     </div>
     <button id="notifications" type="button">
-        Enable Notifications
+        Enable notifications
     </button>
     <script src="index.js?v=0.0.1" type="text/javascript"></script>
 </footer>

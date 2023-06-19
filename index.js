@@ -80,7 +80,7 @@ function timerDone() {
 }
 
 
-
+/** register audio to play when timer is finished */
 const audio = new Audio(
   "https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"
 );
@@ -177,3 +177,37 @@ document.querySelectorAll(".startTimer").forEach((element) => {
     flipit = false == flipit ? true : false;
   });
 });
+
+
+// wakelock
+const wakeLockSwitch = document.querySelector('#wake-lock');
+
+let wakeLock = null;
+
+const requestWakeLock = async () => {
+  try {
+    wakeLock = await navigator.wakeLock.request('screen');
+
+    wakeLock.addEventListener('release', () => {
+      console.log('Wake Lock was released');
+    });
+    console.log('Wake Lock is active');
+  }
+  catch(err) {
+    console.error(`${err.name}, ${err.message}`);
+  }
+};
+
+const releaseWakeLock = () => {
+  console.log('releasing wakeLock');
+
+  wakeLock.release();
+  wakeLock = null;
+};
+
+wakeLockSwitch.addEventListener('change', (event) => {
+  // const {checked} = detail;
+  console.log(event.currentTarget.checked);
+  event.currentTarget.checked ? requestWakeLock() : releaseWakeLock();
+});      
+    
