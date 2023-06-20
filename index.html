@@ -6,7 +6,7 @@
     <title>Pirates</title>
 
     <link rel="stylesheet" href="styles.css?v=0.0.2" /> 
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" crossorigin="use-credentials" href="manifest.json">
 </head>
 
 <body>
@@ -184,6 +184,9 @@
     <button id="notifications" type="button">
         Enable notifications
     </button>
+    <div class="hidden" id="requireHTTPS">
+        Must be served over <a>HTTPS</a>
+    </div>
     <script src="index.js?v=0.0.2" type="text/javascript"></script>
 </footer>
 </html>

@@ -81,9 +81,7 @@ function timerDone() {
 
 
 /** register audio to play when timer is finished */
-const audio = new Audio(
-  "https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"
-);
+const audio = new Audio("/bell.mp3");
 audio.load();
 // audio.addEventListener('play', (event) => {
 //     timer.stop();
