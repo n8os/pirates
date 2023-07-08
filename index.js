@@ -5,11 +5,10 @@ const butNotifications = document.getElementById("notifications");
 butNotifications.addEventListener("click", () => {
   Notification.requestPermission().then((result) => {
     if (result === "granted") {
-      alert('Notifications granted');
+      alert("Notifications granted");
     }
   });
 });
-
 
 /* Put code here */
 window.addEventListener("beforeinstallprompt", (event) => {
@@ -69,9 +68,9 @@ if (window.location.protocol === "http:") {
  */
 
 function timerDone() {
-  const notifTitle = 'Timer done!';
-  const notifBody = 'Get your shit off the stove...';
-  const notifImg = 'lemon-pirate.png';
+  const notifTitle = "Buon appetito";
+  const notifBody = "Get your shit off the stove...";
+  const notifImg = "lemon-pirate.png";
   const options = {
     body: notifBody,
     icon: notifImg,
@@ -79,9 +78,8 @@ function timerDone() {
   new Notification(notifTitle, options);
 }
 
-
 /** register audio to play when timer is finished */
-const audio = new Audio("/bell.mp3");
+const audio = new Audio("./bell.mp3");
 audio.load();
 // audio.addEventListener('play', (event) => {
 //     timer.stop();
@@ -102,7 +100,9 @@ function AdjustingInterval(element, interval, errorFunc) {
   let that = this;
   let expected, timeout;
   let stoptime = element.dataset.time;
-  let timerText = element.parentNode.parentNode.querySelector('.recipe-seconds span');
+  let timerText = element.parentNode.parentNode.querySelector(
+    ".recipe-seconds span"
+  );
   const progress = element.parentNode.parentNode.querySelector("progress");
   this.interval = interval;
 
@@ -176,36 +176,33 @@ document.querySelectorAll(".startTimer").forEach((element) => {
   });
 });
 
-
 // wakelock
-const wakeLockSwitch = document.querySelector('#wake-lock');
+const wakeLockSwitch = document.querySelector("#wake-lock");
 
 let wakeLock = null;
 
 const requestWakeLock = async () => {
   try {
-    wakeLock = await navigator.wakeLock.request('screen');
+    wakeLock = await navigator.wakeLock.request("screen");
 
-    wakeLock.addEventListener('release', () => {
-      console.log('Wake Lock was released');
+    wakeLock.addEventListener("release", () => {
+      console.log("Wake Lock was released");
     });
-    console.log('Wake Lock is active');
-  }
-  catch(err) {
+    console.log("Wake Lock is active");
+  } catch (err) {
     console.error(`${err.name}, ${err.message}`);
   }
 };
 
 const releaseWakeLock = () => {
-  console.log('releasing wakeLock');
+  console.log("releasing wakeLock");
 
   wakeLock.release();
   wakeLock = null;
 };
 
-wakeLockSwitch.addEventListener('change', (event) => {
+wakeLockSwitch.addEventListener("change", (event) => {
   // const {checked} = detail;
   console.log(event.currentTarget.checked);
   event.currentTarget.checked ? requestWakeLock() : releaseWakeLock();
-});      
-    
+});
